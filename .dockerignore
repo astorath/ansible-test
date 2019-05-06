@@ -1,0 +1,7 @@
+.git/
+.github/
+ansible/
+!ansible/requirements.txt
+!ansible/test/runner/requirements/*.txt
+!ansible/hacking/
+!ansible/setup.py

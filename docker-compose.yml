@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  sanity35:
+    build:
+      context: .
+      args:
+        pyversion: "3.5"
+    volumes:
+       - .:/test
+    command: sanity ${MODULES}
+
+  sanity27:
+    build:
+      context: .
+      args:
+        pyversion: "2.7"
+    stdin_open: true
+    tty: true
+    volumes:
+       - .:/test
+    command: sanity ${MODULES}
+
+  manual35:
+    build:
+      context: .
+      args:
+        pyversion: "3.5"
+    stdin_open: true
+    tty: true
+    volumes:
+       - .:/test
+
+  manual27:
+    build:
+      context: .
+      args:
+        pyversion: "2.7"
+    volumes:
+       - .:/test
+
+  integration:
+    build:
+      context: .
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL:-vv}
+      FILTER_TAGS: ${FILTER_TAGS:-}
+    volumes:
+       - .:/test
+       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    command: integration ${INTEGRATION_MODULE} ${CONTAINERS}
+
+  units:
+    build:
+      context: .
+    environment:
+      LOG_LEVEL: ${LOG_LEVEL:-vv}
+    volumes:
+       - .:/test
+       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    command: units ${TESTS}

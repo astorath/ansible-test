@@ -1,0 +1,4 @@
+[submodule "ansible"]
+	path = ansible
+	url = git@github.com:astorath/ansible.git
+	branch = feature/posgresql-scram-passwords
