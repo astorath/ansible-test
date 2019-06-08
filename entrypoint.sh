@@ -33,10 +33,9 @@ if [ "$1" = "integration" ]; then
 fi
 
 if [ "$1" = "units" ]; then
-    echo "Running unit tests in fedora28 container for ${@:2}"
+    echo "Running unit tests in default container for ${@:2}"
     echo LOG_LEVEL=${LOG_LEVEL}
     source hacking/env-setup
-    for i in "${@:2}"; do
-        ansible-test units $i --docker fedora28 -${LOG_LEVEL}
-    done
+    ansible-test units --docker=default --python=2.7 -${LOG_LEVEL} "${@:2}"
+    ansible-test units --docker=default --python=3.5 -${LOG_LEVEL} "${@:2}"
 fi
