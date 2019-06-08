@@ -30,14 +30,18 @@ services:
     tty: true
     volumes:
        - .:/test
+       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   manual27:
     build:
       context: .
       args:
         pyversion: "2.7"
+    stdin_open: true
+    tty: true
     volumes:
        - .:/test
+       - "/var/run/docker.sock:/var/run/docker.sock:ro"
 
   integration:
     build:
